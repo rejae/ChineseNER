@@ -78,5 +78,5 @@
 2019-11-06 23:36:44,757 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
 2019-11-07 12:23:02,203 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
 2019-11-07 12:23:02,806 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
-2019-11-07 12:24:32,562 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
-2019-11-07 12:24:33,135 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:28:45,884 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:28:46,459 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
