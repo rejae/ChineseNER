@@ -22,7 +22,6 @@ class Model(object):
         self.num_tags = config["num_tags"]
         self.num_chars = config["num_chars"]
         self.num_segs = 4
-
         self.global_step = tf.Variable(0, trainable=False)
         self.best_dev_f1 = tf.Variable(0.0, trainable=False)
         self.best_test_f1 = tf.Variable(0.0, trainable=False)
@@ -182,11 +181,13 @@ class Model(object):
                 "transitions",
                 shape=[self.num_tags + 1, self.num_tags + 1],
                 initializer=self.initializer)
+
             log_likelihood, self.trans = crf_log_likelihood(
                 inputs=logits,
                 tag_indices=targets,
                 transition_params=self.trans,
                 sequence_lengths=lengths + 1)
+
             return tf.reduce_mean(-log_likelihood)
 
     def create_feed_dict(self, is_train, batch):
@@ -273,4 +274,12 @@ class Model(object):
         lengths, scores = self.run_step(sess, False, inputs)
         batch_paths = self.decode(scores, lengths, trans)
         tags = [id_to_tag[idx] for idx in batch_paths[0]]
+        return result_to_json(inputs[0][0], tags)
+
+    def evaluate_lines(self, sess, inputs, id_to_tag):
+        trans = self.trans.eval()
+        for item in inputs:
+            lengths, scores = self.run_step(sess, False, item)
+            batch_paths = self.decode(scores, lengths, trans)
+            tags = [id_to_tag[idx] for idx in batch_paths[0]]
         return result_to_json(inputs[0][0], tags)

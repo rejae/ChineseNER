@@ -6,6 +6,7 @@ import random
 
 import numpy as np
 import jieba
+
 jieba.initialize()
 
 
@@ -74,7 +75,7 @@ def iob_iobes(tags):
             new_tags.append(tag)
         elif tag.split('-')[0] == 'B':
             if i + 1 != len(tags) and \
-               tags[i + 1].split('-')[0] == 'I':
+                    tags[i + 1].split('-')[0] == 'I':
                 new_tags.append(tag)
             else:
                 new_tags.append(tag.replace('B-', 'S-'))
@@ -194,13 +195,13 @@ def load_word2vec(emb_path, id_to_word, word_dim, old_weights):
     print('Loaded %i pretrained embeddings.' % len(pre_trained))
     print('%i / %i (%.4f%%) words have been initialized with '
           'pretrained embeddings.' % (
-        c_found + c_lower + c_zeros, n_words,
-        100. * (c_found + c_lower + c_zeros) / n_words)
-    )
+              c_found + c_lower + c_zeros, n_words,
+              100. * (c_found + c_lower + c_zeros) / n_words)
+          )
     print('%i found directly, %i after lowercasing, '
           '%i after lowercasing + zero.' % (
-        c_found, c_lower, c_zeros
-    ))
+              c_found, c_lower, c_zeros
+          ))
     return new_weights
 
 
@@ -232,14 +233,14 @@ def cut_to_sentence(text):
         sentence.append(word)
         cut = False
         if pre_cut:
-            cut=True
-            pre_cut=False
+            cut = True
+            pre_cut = False
         if word in u"。;!?\n":
             cut = True
-            if len_p > idx+1:
-                if text[idx+1] in ".。”\"\'“”‘’?!":
+            if len_p > idx + 1:
+                if text[idx + 1] in ".。”\"\'“”‘’?!":
                     cut = False
-                    pre_cut=True
+                    pre_cut = True
 
         if cut:
             sentences.append(sentence)
@@ -250,16 +251,16 @@ def cut_to_sentence(text):
 
 
 def replace_html(s):
-    s = s.replace('&quot;','"')
-    s = s.replace('&amp;','&')
-    s = s.replace('&lt;','<')
-    s = s.replace('&gt;','>')
-    s = s.replace('&nbsp;',' ')
+    s = s.replace('&quot;', '"')
+    s = s.replace('&amp;', '&')
+    s = s.replace('&lt;', '<')
+    s = s.replace('&gt;', '>')
+    s = s.replace('&nbsp;', ' ')
     s = s.replace("&ldquo;", "“")
     s = s.replace("&rdquo;", "”")
-    s = s.replace("&mdash;","")
+    s = s.replace("&mdash;", "")
     s = s.replace("\xa0", " ")
-    return(s)
+    return (s)
 
 
 def input_from_line(line, char_to_id):
@@ -273,7 +274,7 @@ def input_from_line(line, char_to_id):
     inputs.append([line])
     line.replace(" ", "$")
     inputs.append([[char_to_id[char] if char in char_to_id else char_to_id["<UNK>"]
-                   for char in line]])
+                    for char in line]])
     inputs.append([get_seg_features(line)])
     inputs.append([[]])
     return inputs
@@ -281,16 +282,16 @@ def input_from_line(line, char_to_id):
 
 class BatchManager(object):
 
-    def __init__(self, data,  batch_size):
+    def __init__(self, data, batch_size):
         self.batch_data = self.sort_and_pad(data, batch_size)
         self.len_data = len(self.batch_data)
 
     def sort_and_pad(self, data, batch_size):
-        num_batch = int(math.ceil(len(data) /batch_size))
+        num_batch = int(math.ceil(len(data) / batch_size))
         sorted_data = sorted(data, key=lambda x: len(x[0]))
         batch_data = list()
         for i in range(num_batch):
-            batch_data.append(self.pad_data(sorted_data[i*batch_size : (i+1)*batch_size]))
+            batch_data.append(self.pad_data(sorted_data[i * int(batch_size): (i + 1) * int(batch_size)]))
         return batch_data
 
     @staticmethod

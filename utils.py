@@ -55,7 +55,7 @@ def test_ner(results, path):
     Run perl script to evaluate model
     """
     output_file = os.path.join(path, "ner_predict.utf8")
-    with open(output_file, "w") as f:
+    with open(output_file, "w", encoding='utf-8') as f:
         to_write = []
         for block in results:
             for line in block:
@@ -134,7 +134,7 @@ def load_config(config_file):
     Load configuration of the model
     parameters are stored in json format
     """
-    with open(config_file, encoding="utf8") as f:
+    with open(config_file,  encoding="utf8") as f:
         return json.load(f)
 
 
@@ -209,6 +209,6 @@ def result_to_json(string, tags):
         idx += 1
     return item
 
-
+#load_config("config_file")
 
 
