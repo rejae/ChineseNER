@@ -96,9 +96,9 @@ class Model(object):
         embedding = []
         with tf.variable_scope("char_embedding" if not name else name), tf.device('/cpu:0'):
             self.char_lookup = tf.get_variable(
-                    name="char_embedding",
-                    shape=[self.num_chars, self.char_dim],
-                    initializer=self.initializer)
+                name="char_embedding",
+                shape=[self.num_chars, self.char_dim],
+                initializer=self.initializer)
             embedding.append(tf.nn.embedding_lookup(self.char_lookup, char_inputs))
             if config["seg_dim"]:
                 with tf.variable_scope("seg_embedding"), tf.device('/cpu:0'):
@@ -138,14 +138,14 @@ class Model(object):
         :param lstm_outputs: [batch_size, num_steps, emb_size] 
         :return: [batch_size, num_steps, num_tags]
         """
-        with tf.variable_scope("project"  if not name else name):
+        with tf.variable_scope("project" if not name else name):
             with tf.variable_scope("hidden"):
-                W = tf.get_variable("W", shape=[self.lstm_dim*2, self.lstm_dim],
+                W = tf.get_variable("W", shape=[self.lstm_dim * 2, self.lstm_dim],
                                     dtype=tf.float32, initializer=self.initializer)
 
                 b = tf.get_variable("b", shape=[self.lstm_dim], dtype=tf.float32,
                                     initializer=tf.zeros_initializer())
-                output = tf.reshape(lstm_outputs, shape=[-1, self.lstm_dim*2])
+                output = tf.reshape(lstm_outputs, shape=[-1, self.lstm_dim * 2])
                 hidden = tf.tanh(tf.nn.xw_plus_b(output, W, b))
 
             # project to score of tags
@@ -166,16 +166,17 @@ class Model(object):
         :param project_logits: [1, num_steps, num_tags]
         :return: scalar loss
         """
-        with tf.variable_scope("crf_loss"  if not name else name):
+        with tf.variable_scope("crf_loss" if not name else name):
             small = -1000.0
             # pad logits for crf loss
             start_logits = tf.concat(
-                [small * tf.ones(shape=[self.batch_size, 1, self.num_tags]), tf.zeros(shape=[self.batch_size, 1, 1])], axis=-1)
+                [small * tf.ones(shape=[self.batch_size, 1, self.num_tags]), tf.zeros(shape=[self.batch_size, 1, 1])],
+                axis=-1)
             pad_logits = tf.cast(small * tf.ones([self.batch_size, self.num_steps, 1]), tf.float32)
             logits = tf.concat([project_logits, pad_logits], axis=-1)
             logits = tf.concat([start_logits, logits], axis=1)
             targets = tf.concat(
-                [tf.cast(self.num_tags*tf.ones([self.batch_size, 1]), tf.int32), self.targets], axis=-1)
+                [tf.cast(self.num_tags * tf.ones([self.batch_size, 1]), tf.int32), self.targets], axis=-1)
 
             self.trans = tf.get_variable(
                 "transitions",
@@ -185,7 +186,7 @@ class Model(object):
                 inputs=logits,
                 tag_indices=targets,
                 transition_params=self.trans,
-                sequence_lengths=lengths+1)
+                sequence_lengths=lengths + 1)
             return tf.reduce_mean(-log_likelihood)
 
     def create_feed_dict(self, is_train, batch):
@@ -232,7 +233,7 @@ class Model(object):
         # inference final labels usa viterbi Algorithm
         paths = []
         small = -1000.0
-        start = np.asarray([[small]*self.num_tags +[0]])
+        start = np.asarray([[small] * self.num_tags + [0]])
         for score, length in zip(logits, lengths):
             score = score[:length]
             pad = small * np.ones([length, 1])
