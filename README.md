@@ -60,3 +60,8 @@ State-of-the-art model on SIGHAN2006 NER task.
 8. [Named Entity Recognition with Bidirectional LSTM-CNNs](http://xueshu.baidu.com/s?wd=paperuri%3A%28995499661ccaa95ca3688318f4bc594b%29&filter=sc_long_sign&tn=SE_xueshusource_2kduw22v&sc_vurl=http%3A%2F%2Farxiv.org%2Fabs%2F1511.08308&ie=utf-8&sc_us=14130444594064699095).  
 Method to apply lexicon features.
 
+## deploy model
+
+python app or apps:
+http://127.0.0.1:5000/todos/single_sentence?task=中国崛起     for app test
+http://127.0.0.1:5000/todos/single_sentence?task=中国崛起<SEP>美国自由吗  for apps test
