@@ -80,3 +80,21 @@
 2019-11-07 12:23:02,806 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
 2019-11-07 12:28:45,884 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
 2019-11-07 12:28:46,459 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:32:51,188 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:32:51,188 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:32:51,477 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:32:51,477 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:33:32,186 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:33:32,186 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:33:32,186 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:33:32,476 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:33:32,476 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:33:32,476 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:34:15,244 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:34:15,244 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:34:15,244 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:34:15,244 - train.log - INFO - Reading model parameters from ckpt\ner.ckpt
+2019-11-07 12:34:15,527 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:34:15,527 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:34:15,527 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
+2019-11-07 12:34:15,527 - train.log - INFO - unsupported operand type(s) for +: 'dict' and 'str'
