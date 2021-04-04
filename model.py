@@ -123,6 +123,7 @@ class Model(object):
                         use_peepholes=True,
                         initializer=self.initializer,
                         state_is_tuple=True)
+                    # output_states:一个(output_state_fw,output_state_bw)的元组，包含bidirectional rnn的前向和后向的最终状态。
             outputs, final_states = tf.nn.bidirectional_dynamic_rnn(
                 lstm_cell["forward"],
                 lstm_cell["backward"],
